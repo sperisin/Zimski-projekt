@@ -11,86 +11,58 @@
 
   <p>
   <?php 
-  function rotateMatrix($matrica, $m, $n)
-  {
-  $p = 0;
-  $q = 0;
-  $tempA = [];
-
-  for ($i = 0; $i < $m; ++$i)
-    {
-      for ($j = 0; $j < $n; ++$j)
-      {
-        $p = $m - $i - 1;
-        $q = $n - $j - 1;
-        $tempA[$p][$q] = $matrica[$i][$j];
-      }
-    }
-  return $tempA;
-}
-
-  function getSpiralArray($m, $n)
-  {
-      $pos = 1;
-      $count = $m;
-      $value = -$n;
-      $sum = -1;
-
-      if ($m === 0 || $n === 0)
-      {
-        echo 'Nije unesen broj stupaca ili redaka.';
-      }
-      else
-      {
-      do
-      {
-          $value = -1 * $value / $n;
-          for ($i = 0; $i < $count; ++$i)
-          {
-              $sum += $value;
-              $result[$sum / $n][$sum % $n] = $pos++;
-          }
-          $value *= $n;
-          $count--;
-          for ($i = 0; $i < $count; ++$i)
-          {
-              $sum += $value;
-              $result[$sum / $n][$sum % $n] = $pos++;
-          }
-      } while ($count > 0);
-
-      return $result;
-    }
-  }
-
-  function PrintArray($array, $m, $n)
-  {
-      for ($i = 0; $i < $m; ++$i) {
-          for ($j = 0; $j < $n; ++$j ) {
-              echo $array[$i][$j] . ' ';
-              if ($j === $n - 1)
-                echo '<br/>';
-          }
-          echo '<br/>';
-      }
-  }
+                    
+                        $brred  = $_GET['brred'];
+                        $brstup = $_GET['brstup'];
+                        $maxStupac = $brstup - 1;
+                        $maxred = $brred - 1;
+                        $minred = 0;
+                        $minstup = 0;
+                        $matrica = [];
+                        $output = 1;
 
 
-  
+                        while ($output <= $*$brstup) 
+                        {
 
-  $brred = isset($_GET['brred']) ? $_GET['brred'] : 0;
-  $brstup = isset($_GET['brstup']) ? $_GET['brstup'] : 0;
-  $arr1 = getSpiralArray($brred, $brstup);
-  echo '<pre>';
-  if ($brred === $brstup)
-  {
-    $arr = rotateMatrix($arr1, $brred, $brstup);
-    PrintArray($arr, $brred, $brstup);
-  }
-  else
-    PrintArray($arr1, $brred, $brstup);
-  echo '</pre>';
-?>
+                            for($j = $maxStupac; $j >= $minstup; --$j)
+                                {
+                                    $matrica[$maxred][$j] = $output++;
+                                }
+
+                            $maxred--;
+
+                                if ($output > $*$brstup) 
+                                    break;
+                                
+                            for ($i = $maxred; $i >= $minred; --$i) 
+                                { 
+                                    $matrica[$i][$minstup] = $output++;
+                                }
+
+                            $minstup++;
+
+                            if ($output > $*$brstup) 
+                                break;
+                            
+                            for ($j = $minstup; $j <= $maxStupac; ++$j) 
+                                { 
+                                    $matrica[$minred][$j] = $output++;
+                                }
+
+                            $minred++;
+
+                            if ($output > $*$brstup) 
+                                break;
+                            
+                            for ($i = $minred; $i <= $maxred; ++$i) 
+                                { 
+                                    $matrica[$i][$maxStupac] = $output++;
+                                }
+
+                            $maxStupac--;    
+                        }
+                    ?>
   </p>
 <?php require_once 'predlozak/podnozje.php' ?>
 <?php require_once 'predlozak/skripte.php' ?>
